@@ -1,0 +1,2544 @@
+!- Windows Line endings 
+
+Version,
+    25.1;                     !- Version Identifier
+
+SimulationControl,
+    No,                       !- Do Zone Sizing Calculation
+    No,                       !- Do System Sizing Calculation
+    No,                       !- Do Plant Sizing Calculation
+    No,                       !- Run Simulation for Sizing Periods
+    Yes,                      !- Run Simulation for Weather File Run Periods
+    No,                       !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                        !- Maximum Number of HVAC Sizing Simulation Passes
+
+Building,
+    pr,                       !- Name
+    344.89295343612986,       !- North Axis
+    City,                     !- Terrain
+    0.04,                     !- Loads Convergence Tolerance Value
+    0.4,                      !- Temperature Convergence Tolerance Value
+    FullInteriorAndExterior,    !- Solar Distribution
+    25,                       !- Maximum Number of Warmup Days
+    ;                         !- Minimum Number of Warmup Days
+
+Timestep,
+    4;                        !- Number of Timesteps per Hour
+
+Site:Location,
+    LACHAQUI,                 !- Name
+    -11.553,                  !- Latitude
+    -76.626,                  !- Longitude
+    -5,                       !- Time Zone
+    3700;                     !- Elevation
+
+RunPeriod,
+    anio,                     !- Name
+    1,                        !- Begin Month
+    1,                        !- Begin Day of Month
+    ,                         !- Begin Year
+    12,                       !- End Month
+    31,                       !- End Day of Month
+    ,                         !- End Year
+    ,                         !- Day of Week for Start Day
+    No,                       !- Use Weather File Holidays and Special Days
+    No,                       !- Use Weather File Daylight Saving Period
+    No,                       !- Apply Weekend Holiday Rule
+    Yes,                      !- Use Weather File Rain Indicators
+    Yes,                      !- Use Weather File Snow Indicators
+    No,                       !- Treat Weather as Actual
+    Hour24;                   !- First Hour Interpolation Starting Values
+
+RunPeriodControl:DaylightSavingTime,
+    2nd Sunday in March,      !- Start Date
+    1st Sunday in November;    !- End Date
+
+Site:GroundTemperature:BuildingSurface,
+    9,                        !- January Ground Temperature
+    8,                        !- February Ground Temperature
+    8,                        !- March Ground Temperature
+    7,                        !- April Ground Temperature
+    7,                        !- May Ground Temperature
+    8,                        !- June Ground Temperature
+    8,                        !- July Ground Temperature
+    8,                        !- August Ground Temperature
+    8,                        !- September Ground Temperature
+    8,                        !- October Ground Temperature
+    8,                        !- November Ground Temperature
+    8;                        !- December Ground Temperature
+
+ScheduleTypeLimits,
+    Any Number;               !- Name
+
+ScheduleTypeLimits,
+    Fraction,                 !- Name
+    0,                        !- Lower Limit Value
+    1,                        !- Upper Limit Value
+    CONTINUOUS;               !- Numeric Type
+
+ScheduleTypeLimits,
+    Temperature,              !- Name
+    -60,                      !- Lower Limit Value
+    200,                      !- Upper Limit Value
+    CONTINUOUS;               !- Numeric Type
+
+ScheduleTypeLimits,
+    On/Off,                   !- Name
+    0,                        !- Lower Limit Value
+    1,                        !- Upper Limit Value
+    DISCRETE;                 !- Numeric Type
+
+ScheduleTypeLimits,
+    Control Type,             !- Name
+    0,                        !- Lower Limit Value
+    4,                        !- Upper Limit Value
+    DISCRETE;                 !- Numeric Type
+
+ScheduleTypeLimits,
+    Humidity,                 !- Name
+    10,                       !- Lower Limit Value
+    90,                       !- Upper Limit Value
+    CONTINUOUS;               !- Numeric Type
+
+ScheduleTypeLimits,
+    Number;                   !- Name
+
+Schedule:Compact,
+    Office Lights Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 05:00,             !- Field 3
+    0.05,                     !- Field 4
+    Until: 07:00,             !- Field 5
+    0.1,                      !- Field 6
+    Until: 08:00,             !- Field 7
+    0.3,                      !- Field 8
+    Until: 17:00,             !- Field 9
+    0.9,                      !- Field 10
+    Until: 18:00,             !- Field 11
+    0.5,                      !- Field 12
+    Until: 20:00,             !- Field 13
+    0.3,                      !- Field 14
+    Until: 22:00,             !- Field 15
+    0.2,                      !- Field 16
+    Until: 23:00,             !- Field 17
+    0.1,                      !- Field 18
+    Until: 24:00,             !- Field 19
+    0.05,                     !- Field 20
+    For: SummerDesignDay,     !- Field 21
+    Until: 24:00,             !- Field 22
+    1.0,                      !- Field 23
+    For: Saturday,            !- Field 24
+    Until: 06:00,             !- Field 25
+    0.05,                     !- Field 26
+    Until: 08:00,             !- Field 27
+    0.1,                      !- Field 28
+    Until: 12:00,             !- Field 29
+    0.3,                      !- Field 30
+    Until: 17:00,             !- Field 31
+    0.15,                     !- Field 32
+    Until: 24:00,             !- Field 33
+    0.05,                     !- Field 34
+    For: WinterDesignDay,     !- Field 35
+    Until: 24:00,             !- Field 36
+    0.0,                      !- Field 37
+    For: Sunday Holidays AllOtherDays,    !- Field 38
+    Until: 24:00,             !- Field 39
+    0.05;                     !- Field 40
+
+Schedule:Compact,
+    Office Equipment Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 08:00,             !- Field 3
+    0.40,                     !- Field 4
+    Until: 12:00,             !- Field 5
+    0.90,                     !- Field 6
+    Until: 13:00,             !- Field 7
+    0.80,                     !- Field 8
+    Until: 17:00,             !- Field 9
+    0.90,                     !- Field 10
+    Until: 18:00,             !- Field 11
+    0.50,                     !- Field 12
+    Until: 24:00,             !- Field 13
+    0.40,                     !- Field 14
+    For: SummerDesignDay,     !- Field 15
+    Until: 24:00,             !- Field 16
+    1.0,                      !- Field 17
+    For: Saturday,            !- Field 18
+    Until: 06:00,             !- Field 19
+    0.30,                     !- Field 20
+    Until: 08:00,             !- Field 21
+    0.4,                      !- Field 22
+    Until: 12:00,             !- Field 23
+    0.5,                      !- Field 24
+    Until: 17:00,             !- Field 25
+    0.35,                     !- Field 26
+    Until: 24:00,             !- Field 27
+    0.30,                     !- Field 28
+    For: WinterDesignDay,     !- Field 29
+    Until: 24:00,             !- Field 30
+    0.0,                      !- Field 31
+    For: Sunday Holidays AllOtherDays,    !- Field 32
+    Until: 24:00,             !- Field 33
+    0.30;                     !- Field 34
+
+Schedule:Compact,
+    Office Occupancy Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 06:00,             !- Field 3
+    0.0,                      !- Field 4
+    Until: 07:00,             !- Field 5
+    0.1,                      !- Field 6
+    Until: 08:00,             !- Field 7
+    0.2,                      !- Field 8
+    Until: 12:00,             !- Field 9
+    0.95,                     !- Field 10
+    Until: 13:00,             !- Field 11
+    0.5,                      !- Field 12
+    Until: 17:00,             !- Field 13
+    0.95,                     !- Field 14
+    Until: 18:00,             !- Field 15
+    0.3,                      !- Field 16
+    Until: 20:00,             !- Field 17
+    0.1,                      !- Field 18
+    Until: 24:00,             !- Field 19
+    0.05,                     !- Field 20
+    For: SummerDesignDay,     !- Field 21
+    Until: 06:00,             !- Field 22
+    0.0,                      !- Field 23
+    Until: 22:00,             !- Field 24
+    1.0,                      !- Field 25
+    Until: 24:00,             !- Field 26
+    0.05,                     !- Field 27
+    For: Saturday,            !- Field 28
+    Until: 06:00,             !- Field 29
+    0.0,                      !- Field 30
+    Until: 08:00,             !- Field 31
+    0.1,                      !- Field 32
+    Until: 12:00,             !- Field 33
+    0.3,                      !- Field 34
+    Until: 17:00,             !- Field 35
+    0.1,                      !- Field 36
+    Until: 19:00,             !- Field 37
+    0.0,                      !- Field 38
+    Until: 24:00,             !- Field 39
+    0.0,                      !- Field 40
+    For: WinterDesignDay,     !- Field 41
+    Until: 24:00,             !- Field 42
+    0.0,                      !- Field 43
+    For: Sunday Holidays AllOtherDays,    !- Field 44
+    Until: 06:00,             !- Field 45
+    0.0,                      !- Field 46
+    Until: 18:00,             !- Field 47
+    0.0,                      !- Field 48
+    Until: 24:00,             !- Field 49
+    0.0;                      !- Field 50
+
+Schedule:Compact,
+    Infiltration Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    1.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    0.0,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    1.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    1.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    0.0,                      !- Field 13
+    Until: 24:00,             !- Field 14
+    1.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    1.0;                      !- Field 18
+
+Schedule:Compact,
+    Infiltration Half On Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    1.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    0.5,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    1.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    1.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    0.5,                      !- Field 13
+    Until: 24:00,             !- Field 14
+    1.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    1.0;                      !- Field 18
+
+Schedule:Compact,
+    Infiltration Quarter On Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    1.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    0.25,                     !- Field 6
+    Until: 24:00,             !- Field 7
+    1.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    1.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    0.25,                     !- Field 13
+    Until: 24:00,             !- Field 14
+    1.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    1.0;                      !- Field 18
+
+Schedule:Compact,
+    Hours of Operation Schedule,    !- Name
+    On/Off,                   !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    0.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    1.0,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    0.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    0.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    1.0,                      !- Field 13
+    Until: 24:00,             !- Field 14
+    0.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    0.0;                      !- Field 18
+
+Schedule:Compact,
+    Always On,                !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    1.0;                      !- Field 4
+
+Schedule:Compact,
+    Always Off,               !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    0.0;                      !- Field 4
+
+Schedule:Compact,
+    Heating Setpoint Schedule,    !- Name
+    Temperature,              !- Schedule Type Limits Name
+    Through: 01/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    13.767,                   !- Field 4
+    Through: 02/28,           !- Field 5
+    For: AllDays,             !- Field 6
+    Until: 24:00,             !- Field 7
+    13.269,                   !- Field 8
+    Through: 03/31,           !- Field 9
+    For: AllDays,             !- Field 10
+    Until: 24:00,             !- Field 11
+    13.194,                   !- Field 12
+    Through: 04/30,           !- Field 13
+    For: AllDays,             !- Field 14
+    Until: 24:00,             !- Field 15
+    13.133,                   !- Field 16
+    Through: 05/31,           !- Field 17
+    For: AllDays,             !- Field 18
+    Until: 24:00,             !- Field 19
+    13.114,                   !- Field 20
+    Through: 06/30,           !- Field 21
+    For: AllDays,             !- Field 22
+    Until: 24:00,             !- Field 23
+    13.607,                   !- Field 24
+    Through: 07/31,           !- Field 25
+    For: AllDays,             !- Field 26
+    Until: 24:00,             !- Field 27
+    13.271,                   !- Field 28
+    Through: 08/31,           !- Field 29
+    For: AllDays,             !- Field 30
+    Until: 24:00,             !- Field 31
+    13.359,                   !- Field 32
+    Through: 09/30,           !- Field 33
+    For: AllDays,             !- Field 34
+    Until: 24:00,             !- Field 35
+    13.679,                   !- Field 36
+    Through: 10/31,           !- Field 37
+    For: AllDays,             !- Field 38
+    Until: 24:00,             !- Field 39
+    13.433,                   !- Field 40
+    Through: 11/30,           !- Field 41
+    For: AllDays,             !- Field 42
+    Until: 24:00,             !- Field 43
+    13.341,                   !- Field 44
+    Through: 12/31,           !- Field 45
+    For: AllDays,             !- Field 46
+    Until: 24:00,             !- Field 47
+    13.371;                   !- Field 48
+
+Schedule:Compact,
+    Cooling Setpoint Schedule,    !- Name
+    Temperature,              !- Schedule Type Limits Name
+    Through: 01/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    19.767,                   !- Field 4
+    Through: 02/28,           !- Field 5
+    For: AllDays,             !- Field 6
+    Until: 24:00,             !- Field 7
+    19.269,                   !- Field 8
+    Through: 03/31,           !- Field 9
+    For: AllDays,             !- Field 10
+    Until: 24:00,             !- Field 11
+    19.194,                   !- Field 12
+    Through: 04/30,           !- Field 13
+    For: AllDays,             !- Field 14
+    Until: 24:00,             !- Field 15
+    19.133,                   !- Field 16
+    Through: 05/31,           !- Field 17
+    For: AllDays,             !- Field 18
+    Until: 24:00,             !- Field 19
+    19.114,                   !- Field 20
+    Through: 06/30,           !- Field 21
+    For: AllDays,             !- Field 22
+    Until: 24:00,             !- Field 23
+    19.607,                   !- Field 24
+    Through: 07/31,           !- Field 25
+    For: AllDays,             !- Field 26
+    Until: 24:00,             !- Field 27
+    19.271,                   !- Field 28
+    Through: 08/31,           !- Field 29
+    For: AllDays,             !- Field 30
+    Until: 24:00,             !- Field 31
+    19.359,                   !- Field 32
+    Through: 09/30,           !- Field 33
+    For: AllDays,             !- Field 34
+    Until: 24:00,             !- Field 35
+    19.679,                   !- Field 36
+    Through: 10/31,           !- Field 37
+    For: AllDays,             !- Field 38
+    Until: 24:00,             !- Field 39
+    19.433,                   !- Field 40
+    Through: 11/30,           !- Field 41
+    For: AllDays,             !- Field 42
+    Until: 24:00,             !- Field 43
+    19.341,                   !- Field 44
+    Through: 12/31,           !- Field 45
+    For: AllDays,             !- Field 46
+    Until: 24:00,             !- Field 47
+    19.371;                   !- Field 48
+
+Schedule:Compact,
+    Office Activity Schedule,    !- Name
+    Any Number,               !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    120.;                     !- Field 4
+
+Schedule:Compact,
+    Office Work Eff. Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    0.0;                      !- Field 4
+
+Schedule:Compact,
+    Office Clothing Schedule,    !- Name
+    Any Number,               !- Schedule Type Limits Name
+    Through: 04/30,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    1.0,                      !- Field 4
+    Through: 09/30,           !- Field 5
+    For: AllDays,             !- Field 6
+    Until: 24:00,             !- Field 7
+    0.5,                      !- Field 8
+    Through: 12/31,           !- Field 9
+    For: AllDays,             !- Field 10
+    Until: 24:00,             !- Field 11
+    1.0;                      !- Field 12
+
+Schedule:Compact,
+    Sched_Vent_O10_C10,       !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 10:00,             !- Field 3
+    0.0,                      !- Field 4
+    Until: 10:00,             !- Field 5
+    1.0,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    0.0;                      !- Field 8
+
+SCHEDULE:COMPACT,
+    VENTANA_PROGRAMADA,       !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 11:33,             !- Field 3
+    0,                        !- Field 4
+    Until: 12:27,             !- Field 5
+    1,                        !- Field 6
+    Until: 24:00,             !- Field 7
+    0;                        !- Field 8
+
+Material,
+    calamina,                 !- Name
+    Smooth,                   !- Roughness
+    0.0006,                   !- Thickness
+    52,                       !- Conductivity
+    7850,                     !- Density
+    470,                      !- Specific Heat
+    0.23,                     !- Thermal Absorptance
+    0.45,                     !- Solar Absorptance
+    0.45;                     !- Visible Absorptance
+
+Material,
+    ladrillo,                 !- Name
+    Rough,                    !- Roughness
+    0.15,                     !- Thickness
+    1.5,                      !- Conductivity
+    1800,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.9,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    madera,                   !- Name
+    Rough,                    !- Roughness
+    0.025,                    !- Thickness
+    0.12,                     !- Conductivity
+    550,                      !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    metal,                    !- Name
+    Smooth,                   !- Roughness
+    0.01,                     !- Thickness
+    50,                       !- Conductivity
+    8000,                     !- Density
+    500,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    falso_piso_arena_cemento,    !- Name
+    Rough,                    !- Roughness
+    0.1,                      !- Thickness
+    1.4,                      !- Conductivity
+    2000,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    piso_entre_ambientes_madera,    !- Name
+    Rough,                    !- Roughness
+    0.025,                    !- Thickness
+    0.12,                     !- Conductivity
+    550,                      !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TARRAJEO_CEMENTO_ARENA_2CM,    !- Name
+    Rough,                    !- Roughness
+    0.02,                     !- Thickness
+    0.72,                     !- Conductivity
+    1600,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.2,                      !- Solar Absorptance
+    0.2;                      !- Visible Absorptance
+
+Material,
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Name
+    Rough,                    !- Roughness
+    0.01,                     !- Thickness
+    0.72,                     !- Conductivity
+    1600,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.95,                     !- Solar Absorptance
+    0.2;                      !- Visible Absorptance
+
+Material,
+    MAT_CALAMINA,             !- Name
+    Smooth,                   !- Roughness
+    0.0008,                   !- Thickness
+    45.28,                    !- Conductivity
+    7824,                     !- Density
+    500,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    MAT_ALUZINC,              !- Name
+    Smooth,                   !- Roughness
+    0.0008,                   !- Thickness
+    45.28,                    !- Conductivity
+    7824,                     !- Density
+    500,                      !- Specific Heat
+    0.25,                     !- Thermal Absorptance
+    0.3,                      !- Solar Absorptance
+    0.3;                      !- Visible Absorptance
+
+Material,
+    MAT_EPS_50MM,             !- Name
+    MediumRough,              !- Roughness
+    0.0508,                   !- Thickness
+    0.03,                     !- Conductivity
+    43,                       !- Density
+    1210,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    MAT_TRIPLAY_16MM,         !- Name
+    Smooth,                   !- Roughness
+    0.0159,                   !- Thickness
+    0.12,                     !- Conductivity
+    544,                      !- Density
+    1210,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    MAT_TEJA_ARCILLA,         !- Name
+    VeryRough,                !- Roughness
+    0.0127,                   !- Thickness
+    1.59,                     !- Conductivity
+    1920,                     !- Density
+    1260,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.65,                     !- Solar Absorptance
+    0.65;                     !- Visible Absorptance
+
+Material,
+    MAT_TABLERO_MADERA_16MM,    !- Name
+    Smooth,                   !- Roughness
+    0.0159,                   !- Thickness
+    0.12,                     !- Conductivity
+    540,                      !- Density
+    1210,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    MAT_MURO_ADOBE,           !- Name
+    MediumRough,              !- Roughness
+    0.3,                      !- Thickness
+    0.349,                    !- Conductivity
+    1570,                     !- Density
+    1209,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    MAT_MURO_SILLAR,          !- Name
+    MediumRough,              !- Roughness
+    0.25,                     !- Thickness
+    0.16,                     !- Conductivity
+    1338,                     !- Density
+    1800,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    MAT_MURO_LADRILLO_MACIZO_CABEZA,    !- Name
+    MediumRough,              !- Roughness
+    0.25,                     !- Thickness
+    0.895,                    !- Conductivity
+    1920,                     !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    MAT_MURO_LADRILLO_MACIZO_SOGA,    !- Name
+    MediumRough,              !- Roughness
+    0.13,                     !- Thickness
+    0.895,                    !- Conductivity
+    1920,                     !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    MAT_MURO_LADRILLO_HUECO_CABEZA,    !- Name
+    MediumRough,              !- Roughness
+    0.25,                     !- Thickness
+    0.48,                     !- Conductivity
+    900,                      !- Density
+    936,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    MAT_MURO_LADRILLO_HUECO_SOGA,    !- Name
+    MediumRough,              !- Roughness
+    0.13,                     !- Thickness
+    0.48,                     !- Conductivity
+    900,                      !- Density
+    936,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    F08 Metal surface,        !- Name
+    Smooth,                   !- Roughness
+    0.0008,                   !- Thickness
+    45.28,                    !- Conductivity
+    7824,                     !- Density
+    500,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    G06 45mm wood door,       !- Name
+    MediumSmooth,             !- Roughness
+    0.045,                    !- Thickness
+    0.15,                     !- Conductivity
+    608,                      !- Density
+    1630,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Plancha acero 1mm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.001,                    !- Thickness
+    45.28,                    !- Conductivity
+    7824,                     !- Density
+    500,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Nucleo poliuretano 43mm,    !- Name
+    MediumRough,              !- Roughness
+    0.043,                    !- Thickness
+    0.025,                    !- Conductivity
+    35,                       !- Density
+    1590,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Piel fiberglass 3mm,      !- Name
+    MediumSmooth,             !- Roughness
+    0.003,                    !- Thickness
+    0.29,                     !- Conductivity
+    1800,                     !- Density
+    1170,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Nucleo EPS 39mm,          !- Name
+    MediumRough,              !- Roughness
+    0.039,                    !- Thickness
+    0.037,                    !- Conductivity
+    20,                       !- Density
+    1450,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material:AirGap,
+    MAT_CAMARA_AIRE_TECHO,    !- Name
+    0.18;                     !- Thermal Resistance
+
+WindowMaterial:Glazing,
+    Clear_4mm,                !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.004,                    !- Thickness
+    0.837,                    !- Solar Transmittance at Normal Incidence
+    0.075,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.075,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                    !- Visible Transmittance at Normal Incidence
+    0.081,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.081,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    CLEAR 3MM,                !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.003,                    !- Thickness
+    0.837,                    !- Solar Transmittance at Normal Incidence
+    0.075,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.075,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                    !- Visible Transmittance at Normal Incidence
+    0.081,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.081,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9,                      !- Conductivity
+    1,                        !- Dirt Correction Factor for Solar and Visible Transmittance
+    No,                       !- Solar Diffusing
+    72000000000,              !- Youngs modulus
+    0.22;                     !- Poissons ratio
+
+WindowMaterial:Glazing,
+    CLEAR 6MM,                !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.006,                    !- Thickness
+    0.775,                    !- Solar Transmittance at Normal Incidence
+    0.071,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.071,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.881,                    !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9,                      !- Conductivity
+    1,                        !- Dirt Correction Factor for Solar and Visible Transmittance
+    No,                       !- Solar Diffusing
+    72000000000,              !- Youngs modulus
+    0.22;                     !- Poissons ratio
+
+WindowMaterial:Glazing,
+    LOW IRON 3MM,             !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.003,                    !- Thickness
+    0.899,                    !- Solar Transmittance at Normal Incidence
+    0.079,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.079,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.913,                    !- Visible Transmittance at Normal Incidence
+    0.082,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.082,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9,                      !- Conductivity
+    1,                        !- Dirt Correction Factor for Solar and Visible Transmittance
+    No,                       !- Solar Diffusing
+    72000000000,              !- Youngs modulus
+    0.22;                     !- Poissons ratio
+
+WindowMaterial:Glazing,
+    LoE CLEAR 3MM,            !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.003,                    !- Thickness
+    0.63,                     !- Solar Transmittance at Normal Incidence
+    0.19,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.22,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.85,                     !- Visible Transmittance at Normal Incidence
+    0.056,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.079,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.1,                      !- Back Side Infrared Hemispherical Emissivity
+    0.9,                      !- Conductivity
+    1,                        !- Dirt Correction Factor for Solar and Visible Transmittance
+    No,                       !- Solar Diffusing
+    72000000000,              !- Youngs modulus
+    0.22;                     !- Poissons ratio
+
+WindowMaterial:Glazing,
+    CLEAR 4MM,                !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.004,                    !- Thickness
+    0.837,                    !- Solar Transmittance at Normal Incidence
+    0.075,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.075,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                    !- Visible Transmittance at Normal Incidence
+    0.081,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.081,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9,                      !- Conductivity
+    1,                        !- Dirt Correction Factor for Solar and Visible Transmittance
+    No,                       !- Solar Diffusing
+    72000000000,              !- Youngs modulus
+    0.22;                     !- Poissons ratio
+
+Construction,
+    paredes,                  !- Name
+    ladrillo;                 !- Outside Layer
+
+Construction,
+    techo1,                   !- Name
+    calamina;                 !- Outside Layer
+
+Construction,
+    techo2,                   !- Name
+    calamina;                 !- Outside Layer
+
+Construction,
+    piso,                     !- Name
+    madera;                   !- Outside Layer
+
+Construction,
+    puerta,                   !- Name
+    metal;                    !- Outside Layer
+
+Construction,
+    ventana,                  !- Name
+    CLEAR 4MM;                !- Outside Layer
+
+Construction,
+    piso_del_primer_piso,     !- Name
+    falso_piso_arena_cemento;    !- Outside Layer
+
+Construction,
+    techo_piso_entre_zonas,    !- Name
+    piso_entre_ambientes_madera;    !- Outside Layer
+
+Construction,
+    TECHO_CALAMINA_SIMPLE,    !- Name
+    MAT_CALAMINA;             !- Outside Layer
+
+Construction,
+    TECHO_CALAMINA_CIELORRASO,    !- Name
+    MAT_CALAMINA,             !- Outside Layer
+    MAT_CAMARA_AIRE_TECHO,    !- Layer 2
+    MAT_TRIPLAY_16MM;         !- Layer 3
+
+Construction,
+    TECHO_ALUZINC_EPS_CIELORRASO,    !- Name
+    MAT_ALUZINC,              !- Outside Layer
+    MAT_EPS_50MM,             !- Layer 2
+    MAT_TRIPLAY_16MM;         !- Layer 3
+
+Construction,
+    TECHO_TEJA_ARCILLA,       !- Name
+    MAT_TEJA_ARCILLA;         !- Outside Layer
+
+Construction,
+    TECHO_TEJA_TABLERO_MADERA,    !- Name
+    MAT_TEJA_ARCILLA,         !- Outside Layer
+    MAT_TABLERO_MADERA_16MM;    !- Layer 2
+
+Construction,
+    CONST_CLEAR_3MM,          !- Name
+    CLEAR 3MM;                !- Outside Layer
+
+Construction,
+    CONST_CLEAR_6MM,          !- Name
+    CLEAR 6MM;                !- Outside Layer
+
+Construction,
+    CONST_LOW_IRON_3MM,       !- Name
+    LOW IRON 3MM;             !- Outside Layer
+
+Construction,
+    CONST_LoE_CLEAR_3MM,      !- Name
+    LoE CLEAR 3MM;            !- Outside Layer
+
+Construction,
+    MURO_ADOBE,               !- Name
+    MAT_MURO_ADOBE;           !- Outside Layer
+
+Construction,
+    MURO_SILLAR,              !- Name
+    MAT_MURO_SILLAR;          !- Outside Layer
+
+Construction,
+    MURO_LADRILLO_MACIZO_CABEZA,    !- Name
+    MAT_MURO_LADRILLO_MACIZO_CABEZA;    !- Outside Layer
+
+Construction,
+    MURO_LADRILLO_MACIZO_SOGA,    !- Name
+    MAT_MURO_LADRILLO_MACIZO_SOGA;    !- Outside Layer
+
+Construction,
+    MURO_LADRILLO_HUECO_CABEZA,    !- Name
+    MAT_MURO_LADRILLO_HUECO_CABEZA;    !- Outside Layer
+
+Construction,
+    MURO_LADRILLO_HUECO_SOGA,    !- Name
+    MAT_MURO_LADRILLO_HUECO_SOGA;    !- Outside Layer
+
+Construction,
+    Puerta Madera Maciza,     !- Name
+    G06 45mm wood door;       !- Outside Layer
+
+Construction,
+    Puerta Plancha Metalica,    !- Name
+    Plancha acero 1mm;        !- Outside Layer
+
+Construction,
+    Puerta Acero Nucleo PUR,    !- Name
+    F08 Metal surface,        !- Outside Layer
+    Nucleo poliuretano 43mm,    !- Layer 2
+    F08 Metal surface;        !- Layer 3
+
+Construction,
+    Puerta Fiberglass Nucleo EPS,    !- Name
+    Piel fiberglass 3mm,      !- Outside Layer
+    Nucleo EPS 39mm,          !- Layer 2
+    Piel fiberglass 3mm;      !- Layer 3
+
+Construction,
+    CONST_CLEAR_4MM,          !- Name
+    CLEAR 4MM;                !- Outside Layer
+
+Construction,
+    MURO_ADOBE_tarrajeo,      !- Name
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Outside Layer
+    MAT_MURO_ADOBE,           !- Layer 2
+    TARRAJEO_CEMENTO_ARENA_1CM;    !- Layer 3
+
+Construction,
+    MURO_SILLAR_tarrajeo,     !- Name
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Outside Layer
+    MAT_MURO_SILLAR,          !- Layer 2
+    TARRAJEO_CEMENTO_ARENA_1CM;    !- Layer 3
+
+Construction,
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Name
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Outside Layer
+    MAT_MURO_LADRILLO_MACIZO_CABEZA,    !- Layer 2
+    TARRAJEO_CEMENTO_ARENA_1CM;    !- Layer 3
+
+Construction,
+    MURO_LADRILLO_MACIZO_SOGA_tarrajeo,    !- Name
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Outside Layer
+    MAT_MURO_LADRILLO_MACIZO_SOGA,    !- Layer 2
+    TARRAJEO_CEMENTO_ARENA_1CM;    !- Layer 3
+
+Construction,
+    MURO_LADRILLO_HUECO_CABEZA_tarrajeo,    !- Name
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Outside Layer
+    MAT_MURO_LADRILLO_HUECO_CABEZA,    !- Layer 2
+    TARRAJEO_CEMENTO_ARENA_1CM;    !- Layer 3
+
+Construction,
+    MURO_LADRILLO_HUECO_SOGA_tarrajeo,    !- Name
+    TARRAJEO_CEMENTO_ARENA_1CM,    !- Outside Layer
+    MAT_MURO_LADRILLO_HUECO_SOGA,    !- Layer 2
+    TARRAJEO_CEMENTO_ARENA_1CM;    !- Layer 3
+
+GlobalGeometryRules,
+    UpperLeftCorner,          !- Starting Vertex Position
+    Counterclockwise,         !- Vertex Entry Direction
+    Relative;                 !- Coordinate System
+
+Zone,
+    primeroPisoCentro,        !- Name
+    270,                      !- Direction of Relative North
+    0.341875,                 !- X Origin
+    2.18885,                  !- Y Origin
+    0,                        !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+Zone,
+    zona_primero_piso_derecha,    !- Name
+    0,                        !- Direction of Relative North
+    -0.64339,                 !- X Origin
+    6.48559,                  !- Y Origin
+    0,                        !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+Zone,
+    primero_piso_izquierda_zona,    !- Name
+    0,                        !- Direction of Relative North
+    1.333257,                 !- X Origin
+    0.611417,                 !- Y Origin
+    0,                        !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+Zone,
+    segundo_piso_Centro,      !- Name
+    0,                        !- Direction of Relative North
+    -13.28855,                !- X Origin
+    2.562237,                 !- Y Origin
+    0,                        !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+Zone,
+    segundo_piso_izquierda_zona,    !- Name
+    0,                        !- Direction of Relative North
+    -1.477967,                !- X Origin
+    0.394956,                 !- Y Origin
+    2.55,                     !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+Zone,
+    zona_segundo_piso_derecha,    !- Name
+    0,                        !- Direction of Relative North
+    -1.578406,                !- X Origin
+    5.866975,                 !- Y Origin
+    2.55,                     !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+BuildingSurface:Detailed,
+    pisoPrimerPisoCentroAbajo,    !- Name
+    Floor,                    !- Surface Type
+    piso_del_primer_piso,     !- Construction Name
+    primeroPisoCentro,        !- Zone Name
+    ,                         !- Space Name
+    Ground,                   !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.678125,                 !- Vertex 1 Xcoordinate
+    -2.18885,                 !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    -0.341875,                !- Vertex 2 Xcoordinate
+    -2.18885,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -0.341875,                !- Vertex 3 Xcoordinate
+    4.51115,                  !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    3.678125,                 !- Vertex 4 Xcoordinate
+    4.51115,                  !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    paredPrimerPisoCentroEste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primeroPisoCentro,        !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    pared_primero_piso_izquierda_oeste,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -0.341875,                !- Vertex 1 Xcoordinate
+    4.51115,                  !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -0.341875,                !- Vertex 2 Xcoordinate
+    4.51115,                  !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -0.341875,                !- Vertex 3 Xcoordinate
+    -2.18885,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -0.341875,                !- Vertex 4 Xcoordinate
+    -2.18885,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    paredPrimerPisoCentroNorte,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primeroPisoCentro,        !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -0.341875,                !- Vertex 1 Xcoordinate
+    -2.18885,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -0.341875,                !- Vertex 2 Xcoordinate
+    -2.18885,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    3.678125,                 !- Vertex 3 Xcoordinate
+    -2.18885,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    3.678125,                 !- Vertex 4 Xcoordinate
+    -2.18885,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    paredPrimerPisoCentroOeste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primeroPisoCentro,        !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    pared_primer_piso_derecha_este,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.678125,                 !- Vertex 1 Xcoordinate
+    -2.18885,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    3.678125,                 !- Vertex 2 Xcoordinate
+    -2.18885,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    3.678125,                 !- Vertex 3 Xcoordinate
+    4.51115,                  !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    3.678125,                 !- Vertex 4 Xcoordinate
+    4.51115,                  !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    techoPrimerCentroArriba,    !- Name
+    Ceiling,                  !- Surface Type
+    techo_piso_entre_zonas,    !- Construction Name
+    primeroPisoCentro,        !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    piso_segundo_piso_centro_abajo,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.678125,                 !- Vertex 1 Xcoordinate
+    4.51115,                  !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -0.341875,                !- Vertex 2 Xcoordinate
+    4.51115,                  !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    -0.341875,                !- Vertex 3 Xcoordinate
+    -2.18885,                 !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    3.678125,                 !- Vertex 4 Xcoordinate
+    -2.18885,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    paredPrimerPisoCentroSur,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primeroPisoCentro,        !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.678125,                 !- Vertex 1 Xcoordinate
+    4.51115,                  !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    3.678125,                 !- Vertex 2 Xcoordinate
+    4.51115,                  !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -0.341875,                !- Vertex 3 Xcoordinate
+    4.51115,                  !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -0.341875,                !- Vertex 4 Xcoordinate
+    4.51115,                  !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    piso_primer_piso_derecha_abajo,    !- Name
+    Floor,                    !- Surface Type
+    piso_del_primer_piso,     !- Construction Name
+    zona_primero_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Ground,                   !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.174115,                 !- Vertex 1 Xcoordinate
+    3.401385,                 !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    3.174115,                 !- Vertex 2 Xcoordinate
+    -0.618615,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -3.525885,                !- Vertex 3 Xcoordinate
+    -0.618615,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -3.525885,                !- Vertex 4 Xcoordinate
+    3.401385,                 !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    techoPrimeroPisoDerecha,    !- Name
+    Ceiling,                  !- Surface Type
+    piso_del_primer_piso,     !- Construction Name
+    zona_primero_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    piso_segundo_piso_derecha_abajo,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -3.525885,                !- Vertex 1 Xcoordinate
+    3.401385,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -3.525885,                !- Vertex 2 Xcoordinate
+    -0.618615,                !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    3.174115,                 !- Vertex 3 Xcoordinate
+    -0.618615,                !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    3.174115,                 !- Vertex 4 Xcoordinate
+    3.401385,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    paredPrimeroPisoDerechaNorte,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_primero_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.174115,                 !- Vertex 1 Xcoordinate
+    -0.618615,                !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    3.174115,                 !- Vertex 2 Xcoordinate
+    -0.618615,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    3.174115,                 !- Vertex 3 Xcoordinate
+    3.401385,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    3.174115,                 !- Vertex 4 Xcoordinate
+    3.401385,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primer_piso_derecha_oeste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_primero_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    3.174115,                 !- Vertex 1 Xcoordinate
+    3.401385,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    3.174115,                 !- Vertex 2 Xcoordinate
+    3.401385,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -3.525885,                !- Vertex 3 Xcoordinate
+    3.401385,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -3.525885,                !- Vertex 4 Xcoordinate
+    3.401385,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primer_piso_derecha_este,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_primero_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    paredPrimerPisoCentroOeste,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -3.525885,                !- Vertex 1 Xcoordinate
+    -0.618615,                !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -3.525885,                !- Vertex 2 Xcoordinate
+    -0.618615,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    3.174115,                 !- Vertex 3 Xcoordinate
+    -0.618615,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    3.174115,                 !- Vertex 4 Xcoordinate
+    -0.618615,                !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primer_piso_derecha_sur,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_primero_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -3.525885,                !- Vertex 1 Xcoordinate
+    3.401385,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -3.525885,                !- Vertex 2 Xcoordinate
+    3.401385,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -3.525885,                !- Vertex 3 Xcoordinate
+    -0.618615,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -3.525885,                !- Vertex 4 Xcoordinate
+    -0.618615,                !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    piso_primero_piso_izquierda_abajo,    !- Name
+    Floor,                    !- Surface Type
+    piso_del_primer_piso,     !- Construction Name
+    primero_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Ground,                   !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    1.197468,                 !- Vertex 1 Xcoordinate
+    1.235558,                 !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    1.197468,                 !- Vertex 2 Xcoordinate
+    -2.784442,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -5.502532,                !- Vertex 3 Xcoordinate
+    -2.784442,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -5.502532,                !- Vertex 4 Xcoordinate
+    1.235558,                 !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    techo_primero_piso_izquierda_arriba,    !- Name
+    Ceiling,                  !- Surface Type
+    techo_piso_entre_zonas,    !- Construction Name
+    primero_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    piso_segundo_piso_izquierda_abajo,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -5.502532,                !- Vertex 1 Xcoordinate
+    1.235558,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -5.502532,                !- Vertex 2 Xcoordinate
+    -2.784442,                !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    1.197468,                 !- Vertex 3 Xcoordinate
+    -2.784442,                !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    1.197468,                 !- Vertex 4 Xcoordinate
+    1.235558,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primero_piso_izquierda_norte,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primero_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    1.197468,                 !- Vertex 1 Xcoordinate
+    -2.784442,                !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    1.197468,                 !- Vertex 2 Xcoordinate
+    -2.784442,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    1.197468,                 !- Vertex 3 Xcoordinate
+    1.235558,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    1.197468,                 !- Vertex 4 Xcoordinate
+    1.235558,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primero_piso_izquierda_sur,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primero_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -5.502532,                !- Vertex 1 Xcoordinate
+    1.235558,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -5.502532,                !- Vertex 2 Xcoordinate
+    1.235558,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -5.502532,                !- Vertex 3 Xcoordinate
+    -2.784442,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -5.502532,                !- Vertex 4 Xcoordinate
+    -2.784442,                !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primero_piso_izquierda_este,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primero_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -5.502532,                !- Vertex 1 Xcoordinate
+    -2.784442,                !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    -5.502532,                !- Vertex 2 Xcoordinate
+    -2.784442,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    1.197468,                 !- Vertex 3 Xcoordinate
+    -2.784442,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    1.197468,                 !- Vertex 4 Xcoordinate
+    -2.784442,                !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_primero_piso_izquierda_oeste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    primero_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    paredPrimerPisoCentroEste,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    1.197468,                 !- Vertex 1 Xcoordinate
+    1.235558,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    1.197468,                 !- Vertex 2 Xcoordinate
+    1.235558,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -5.502532,                !- Vertex 3 Xcoordinate
+    1.235558,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -5.502532,                !- Vertex 4 Xcoordinate
+    1.235558,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    piso_segundo_piso_centro_abajo,    !- Name
+    Floor,                    !- Surface Type
+    techo_piso_entre_zonas,    !- Construction Name
+    segundo_piso_Centro,      !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    techoPrimerCentroArriba,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    15.819275,                !- Vertex 1 Xcoordinate
+    3.304738,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    15.819275,                !- Vertex 2 Xcoordinate
+    -0.715262,                !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    9.119275,                 !- Vertex 3 Xcoordinate
+    -0.715262,                !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    9.119275,                 !- Vertex 4 Xcoordinate
+    3.304738,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_centro_norte,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_Centro,      !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    15.819275,                !- Vertex 1 Xcoordinate
+    -0.715262,                !- Vertex 1 Ycoordinate
+    5.1,                      !- Vertex 1 Zcoordinate
+    15.819275,                !- Vertex 2 Xcoordinate
+    -0.715262,                !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    15.819275,                !- Vertex 3 Xcoordinate
+    3.304738,                 !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    15.819275,                !- Vertex 4 Xcoordinate
+    3.304738,                 !- Vertex 4 Ycoordinate
+    5.1;                      !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_centro_oeste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_Centro,      !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    pared_segundo_piso_derecha_este,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    15.819275,                !- Vertex 1 Xcoordinate
+    3.304738,                 !- Vertex 1 Ycoordinate
+    5.1,                      !- Vertex 1 Zcoordinate
+    15.819275,                !- Vertex 2 Xcoordinate
+    3.304738,                 !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    9.119275,                 !- Vertex 3 Xcoordinate
+    3.304738,                 !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    9.119275,                 !- Vertex 4 Xcoordinate
+    3.304738,                 !- Vertex 4 Ycoordinate
+    5.31;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_centro_sur,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_Centro,      !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    9.119275,                 !- Vertex 1 Xcoordinate
+    3.304738,                 !- Vertex 1 Ycoordinate
+    5.31,                     !- Vertex 1 Zcoordinate
+    9.119275,                 !- Vertex 2 Xcoordinate
+    3.304738,                 !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    9.119275,                 !- Vertex 3 Xcoordinate
+    -0.715262,                !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    9.119275,                 !- Vertex 4 Xcoordinate
+    -0.715262,                !- Vertex 4 Ycoordinate
+    5.31;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_centro_este,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_Centro,      !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    pared_segundo_piso_izquierda_oeste,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    9.119275,                 !- Vertex 1 Xcoordinate
+    -0.715262,                !- Vertex 1 Ycoordinate
+    5.31,                     !- Vertex 1 Zcoordinate
+    9.119275,                 !- Vertex 2 Xcoordinate
+    -0.715262,                !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    15.819275,                !- Vertex 3 Xcoordinate
+    -0.715262,                !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    15.819275,                !- Vertex 4 Xcoordinate
+    -0.715262,                !- Vertex 4 Ycoordinate
+    5.1;                      !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    techo_segundo_piso_centro_arriba,    !- Name
+    Roof,                     !- Surface Type
+    TECHO_ALUZINC_EPS_CIELORRASO,    !- Construction Name
+    segundo_piso_Centro,      !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    9.119275,                 !- Vertex 1 Xcoordinate
+    -0.715262,                !- Vertex 1 Ycoordinate
+    5.31,                     !- Vertex 1 Zcoordinate
+    15.819275,                !- Vertex 2 Xcoordinate
+    -0.715262,                !- Vertex 2 Ycoordinate
+    5.1,                      !- Vertex 2 Zcoordinate
+    15.819275,                !- Vertex 3 Xcoordinate
+    3.304738,                 !- Vertex 3 Ycoordinate
+    5.1,                      !- Vertex 3 Zcoordinate
+    9.119275,                 !- Vertex 4 Xcoordinate
+    3.304738,                 !- Vertex 4 Ycoordinate
+    5.31;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    piso_segundo_piso_izquierda_abajo,    !- Name
+    Floor,                    !- Surface Type
+    techo_piso_entre_zonas,    !- Construction Name
+    segundo_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    techo_primero_piso_izquierda_arriba,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    4.008692,                 !- Vertex 1 Xcoordinate
+    1.452019,                 !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    4.008692,                 !- Vertex 2 Xcoordinate
+    -2.567981,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -2.691308,                !- Vertex 3 Xcoordinate
+    -2.567981,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -2.691308,                !- Vertex 4 Xcoordinate
+    1.452019,                 !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_izquierda_este,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -2.691308,                !- Vertex 1 Xcoordinate
+    -2.567981,                !- Vertex 1 Ycoordinate
+    2.76,                     !- Vertex 1 Zcoordinate
+    -2.691308,                !- Vertex 2 Xcoordinate
+    -2.567981,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    4.008692,                 !- Vertex 3 Xcoordinate
+    -2.567981,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    4.008692,                 !- Vertex 4 Xcoordinate
+    -2.567981,                !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_izquierda_sur,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -2.691308,                !- Vertex 1 Xcoordinate
+    1.452019,                 !- Vertex 1 Ycoordinate
+    2.76,                     !- Vertex 1 Zcoordinate
+    -2.691308,                !- Vertex 2 Xcoordinate
+    1.452019,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -2.691308,                !- Vertex 3 Xcoordinate
+    -2.567981,                !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -2.691308,                !- Vertex 4 Xcoordinate
+    -2.567981,                !- Vertex 4 Ycoordinate
+    2.76;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_izquierda_norte,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    4.008692,                 !- Vertex 1 Xcoordinate
+    -2.567981,                !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    4.008692,                 !- Vertex 2 Xcoordinate
+    -2.567981,                !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    4.008692,                 !- Vertex 3 Xcoordinate
+    1.452019,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    4.008692,                 !- Vertex 4 Xcoordinate
+    1.452019,                 !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_izquierda_oeste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    segundo_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    pared_segundo_piso_centro_este,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    4.008692,                 !- Vertex 1 Xcoordinate
+    1.452019,                 !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    4.008692,                 !- Vertex 2 Xcoordinate
+    1.452019,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -2.691308,                !- Vertex 3 Xcoordinate
+    1.452019,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -2.691308,                !- Vertex 4 Xcoordinate
+    1.452019,                 !- Vertex 4 Ycoordinate
+    2.76;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    techo_segundo_piso_izquierda_arriba,    !- Name
+    Roof,                     !- Surface Type
+    TECHO_ALUZINC_EPS_CIELORRASO,    !- Construction Name
+    segundo_piso_izquierda_zona,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -2.691308,                !- Vertex 1 Xcoordinate
+    -2.567981,                !- Vertex 1 Ycoordinate
+    2.76,                     !- Vertex 1 Zcoordinate
+    4.008692,                 !- Vertex 2 Xcoordinate
+    -2.567981,                !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    4.008692,                 !- Vertex 3 Xcoordinate
+    1.452019,                 !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    -2.691308,                !- Vertex 4 Xcoordinate
+    1.452019,                 !- Vertex 4 Ycoordinate
+    2.76;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    piso_segundo_piso_derecha_abajo,    !- Name
+    Floor,                    !- Surface Type
+    piso_del_primer_piso,     !- Construction Name
+    zona_segundo_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    techoPrimeroPisoDerecha,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    4.109131,                 !- Vertex 1 Xcoordinate
+    4.02,                     !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    4.109131,                 !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -2.590869,                !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -2.590869,                !- Vertex 4 Xcoordinate
+    4.02,                     !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_derecha_norte,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_segundo_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    4.109131,                 !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    4.109131,                 !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    4.109131,                 !- Vertex 3 Xcoordinate
+    4.02,                     !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    4.109131,                 !- Vertex 4 Xcoordinate
+    4.02,                     !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_derecha_oeste,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_segundo_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    4.109131,                 !- Vertex 1 Xcoordinate
+    4.02,                     !- Vertex 1 Ycoordinate
+    2.55,                     !- Vertex 1 Zcoordinate
+    4.109131,                 !- Vertex 2 Xcoordinate
+    4.02,                     !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -2.590869,                !- Vertex 3 Xcoordinate
+    4.02,                     !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -2.590869,                !- Vertex 4 Xcoordinate
+    4.02,                     !- Vertex 4 Ycoordinate
+    2.76;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    techo_segundo_piso_derecha_arriba,    !- Name
+    Roof,                     !- Surface Type
+    TECHO_ALUZINC_EPS_CIELORRASO,    !- Construction Name
+    zona_segundo_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -2.590869,                !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    2.76,                     !- Vertex 1 Zcoordinate
+    4.109131,                 !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    4.109131,                 !- Vertex 3 Xcoordinate
+    4.02,                     !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    -2.590869,                !- Vertex 4 Xcoordinate
+    4.02,                     !- Vertex 4 Ycoordinate
+    2.76;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_derecha_sur,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_segundo_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -2.590869,                !- Vertex 1 Xcoordinate
+    4.02,                     !- Vertex 1 Ycoordinate
+    2.76,                     !- Vertex 1 Zcoordinate
+    -2.590869,                !- Vertex 2 Xcoordinate
+    4.02,                     !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    -2.590869,                !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    -2.590869,                !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    2.76;                     !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    pared_segundo_piso_derecha_este,    !- Name
+    Wall,                     !- Surface Type
+    MURO_LADRILLO_MACIZO_CABEZA_tarrajeo,    !- Construction Name
+    zona_segundo_piso_derecha,    !- Zone Name
+    ,                         !- Space Name
+    Surface,                  !- Outside Boundary Condition
+    pared_segundo_piso_centro_oeste,    !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    0,                        !- View Factor to Ground
+    4,                        !- Number of Vertices
+    -2.590869,                !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    2.76,                     !- Vertex 1 Zcoordinate
+    -2.590869,                !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    4.109131,                 !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    4.109131,                 !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    2.55;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    puertaPrimerPisoCentroNorte,    !- Name
+    Door,                     !- Surface Type
+    Puerta Acero Nucleo PUR,    !- Construction Name
+    paredPrimerPisoCentroNorte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    -0.321875,                !- Vertex 1 Xcoordinate
+    -2.18885,                 !- Vertex 1 Ycoordinate
+    1.98,                     !- Vertex 1 Zcoordinate
+    -0.321875,                !- Vertex 2 Xcoordinate
+    -2.18885,                 !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0.728125,                 !- Vertex 3 Xcoordinate
+    -2.18885,                 !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0.728125,                 !- Vertex 4 Xcoordinate
+    -2.18885,                 !- Vertex 4 Ycoordinate
+    1.98;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    puertaPrimeroPisoDerechaNorte,    !- Name
+    Door,                     !- Surface Type
+    Puerta Acero Nucleo PUR,    !- Construction Name
+    paredPrimeroPisoDerechaNorte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    3.174115,                 !- Vertex 1 Xcoordinate
+    -0.576655917919,          !- Vertex 1 Ycoordinate
+    1.98,                     !- Vertex 1 Zcoordinate
+    3.174115,                 !- Vertex 2 Xcoordinate
+    -0.576655917919,          !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    3.174115,                 !- Vertex 3 Xcoordinate
+    0.453344082081,           !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    3.174115,                 !- Vertex 4 Xcoordinate
+    0.453344082081,           !- Vertex 4 Ycoordinate
+    1.98;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    puerta_primero_piso_izquierda_norte,    !- Name
+    Door,                     !- Surface Type
+    Puerta Acero Nucleo PUR,    !- Construction Name
+    pared_primero_piso_izquierda_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    1.197468,                 !- Vertex 1 Xcoordinate
+    0.143290731507,           !- Vertex 1 Ycoordinate
+    1.98,                     !- Vertex 1 Zcoordinate
+    1.197468,                 !- Vertex 2 Xcoordinate
+    0.143290731507,           !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    1.197468,                 !- Vertex 3 Xcoordinate
+    1.173290731507,           !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    1.197468,                 !- Vertex 4 Xcoordinate
+    1.173290731507,           !- Vertex 4 Ycoordinate
+    1.98;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    puerta_segundo_piso_centro_norte,    !- Name
+    Door,                     !- Surface Type
+    Puerta Acero Nucleo PUR,    !- Construction Name
+    pared_segundo_piso_centro_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    15.819275,                !- Vertex 1 Xcoordinate
+    -0.617710261405,          !- Vertex 1 Ycoordinate
+    4.53,                     !- Vertex 1 Zcoordinate
+    15.819275,                !- Vertex 2 Xcoordinate
+    -0.617710261405,          !- Vertex 2 Ycoordinate
+    2.55,                     !- Vertex 2 Zcoordinate
+    15.819275,                !- Vertex 3 Xcoordinate
+    0.412289738595,           !- Vertex 3 Ycoordinate
+    2.55,                     !- Vertex 3 Zcoordinate
+    15.819275,                !- Vertex 4 Xcoordinate
+    0.412289738595,           !- Vertex 4 Ycoordinate
+    4.53;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    puerta_segundo_piso_izquierda_arriba,    !- Name
+    Door,                     !- Surface Type
+    Puerta Acero Nucleo PUR,    !- Construction Name
+    pared_segundo_piso_izquierda_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    4.008692,                 !- Vertex 1 Xcoordinate
+    0.309739810355,           !- Vertex 1 Ycoordinate
+    1.98,                     !- Vertex 1 Zcoordinate
+    4.008692,                 !- Vertex 2 Xcoordinate
+    0.309739810355,           !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    4.008692,                 !- Vertex 3 Xcoordinate
+    1.339739810355,           !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    4.008692,                 !- Vertex 4 Xcoordinate
+    1.339739810355,           !- Vertex 4 Ycoordinate
+    1.98;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    puerta_segundo_piso_derecha_norte,    !- Name
+    Door,                     !- Surface Type
+    Puerta Acero Nucleo PUR,    !- Construction Name
+    pared_segundo_piso_derecha_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    4.109131,                 !- Vertex 1 Xcoordinate
+    0.135122681266,           !- Vertex 1 Ycoordinate
+    1.98,                     !- Vertex 1 Zcoordinate
+    4.109131,                 !- Vertex 2 Xcoordinate
+    0.135122681266,           !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    4.109131,                 !- Vertex 3 Xcoordinate
+    1.165122681266,           !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    4.109131,                 !- Vertex 4 Xcoordinate
+    1.165122681266,           !- Vertex 4 Ycoordinate
+    1.98;                     !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    ventana_segundo_piso_centro_norte,    !- Name
+    Window,                   !- Surface Type
+    CONST_LOW_IRON_3MM,       !- Construction Name
+    pared_segundo_piso_centro_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    15.819275,                !- Vertex 1 Xcoordinate
+    0.829986331369,           !- Vertex 1 Ycoordinate
+    4.779975,                 !- Vertex 1 Zcoordinate
+    15.819275,                !- Vertex 2 Xcoordinate
+    0.829986331369,           !- Vertex 2 Ycoordinate
+    3.280125,                 !- Vertex 2 Zcoordinate
+    15.819275,                !- Vertex 3 Xcoordinate
+    2.334786331369,           !- Vertex 3 Ycoordinate
+    3.280125,                 !- Vertex 3 Zcoordinate
+    15.819275,                !- Vertex 4 Xcoordinate
+    2.334786331369,           !- Vertex 4 Ycoordinate
+    4.779975;                 !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    ventana_segundo_piso_izquierda_norte,    !- Name
+    Window,                   !- Surface Type
+    CONST_LOW_IRON_3MM,       !- Construction Name
+    pared_segundo_piso_izquierda_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    4.008692,                 !- Vertex 1 Xcoordinate
+    -2.00058893562,           !- Vertex 1 Ycoordinate
+    2.1446668157264996,       !- Vertex 1 Zcoordinate
+    4.008692,                 !- Vertex 2 Xcoordinate
+    -2.00058893562,           !- Vertex 2 Ycoordinate
+    0.6435197563095001,       !- Vertex 2 Zcoordinate
+    4.008692,                 !- Vertex 3 Xcoordinate
+    -5.038727e-01,            !- Vertex 3 Ycoordinate
+    0.6435197563095001,       !- Vertex 3 Zcoordinate
+    4.008692,                 !- Vertex 4 Xcoordinate
+    -5.038727e-01,            !- Vertex 4 Ycoordinate
+    2.1446668157264996;       !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    ventana_segundo_piso_derecha_norte,    !- Name
+    Window,                   !- Surface Type
+    CONST_LOW_IRON_3MM,       !- Construction Name
+    pared_segundo_piso_derecha_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    4.109131,                 !- Vertex 1 Xcoordinate
+    1.5995957814969999,       !- Vertex 1 Ycoordinate
+    2.1152694233659997,       !- Vertex 1 Zcoordinate
+    4.109131,                 !- Vertex 2 Xcoordinate
+    1.5995957814969999,       !- Vertex 2 Ycoordinate
+    0.6152709233660001,       !- Vertex 2 Zcoordinate
+    4.109131,                 !- Vertex 3 Xcoordinate
+    3.0994457814970002,       !- Vertex 3 Ycoordinate
+    0.6152709233660001,       !- Vertex 3 Zcoordinate
+    4.109131,                 !- Vertex 4 Xcoordinate
+    3.0994457814970002,       !- Vertex 4 Ycoordinate
+    2.1152694233659997;       !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    ventana_primer_piso_centro_norte,    !- Name
+    Window,                   !- Surface Type
+    CONST_LOW_IRON_3MM,       !- Construction Name
+    paredPrimerPisoCentroNorte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    1.3748458739990002,       !- Vertex 1 Xcoordinate
+    -2.18885,                 !- Vertex 1 Ycoordinate
+    2.061366569482,           !- Vertex 1 Zcoordinate
+    1.3748458739990002,       !- Vertex 2 Xcoordinate
+    -2.18885,                 !- Vertex 2 Ycoordinate
+    0.5615165694819999,       !- Vertex 2 Zcoordinate
+    2.874695873999,           !- Vertex 3 Xcoordinate
+    -2.18885,                 !- Vertex 3 Ycoordinate
+    0.5615165694819999,       !- Vertex 3 Zcoordinate
+    2.874695873999,           !- Vertex 4 Xcoordinate
+    -2.18885,                 !- Vertex 4 Ycoordinate
+    2.061366569482;           !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    ventana_primero_piso_izquiera_norte,    !- Name
+    Window,                   !- Surface Type
+    CONST_LOW_IRON_3MM,       !- Construction Name
+    pared_primero_piso_izquierda_norte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    1.197468,                 !- Vertex 1 Xcoordinate
+    -2.021699322209,          !- Vertex 1 Ycoordinate
+    2.229975,                 !- Vertex 1 Zcoordinate
+    1.197468,                 !- Vertex 2 Xcoordinate
+    -2.021699322209,          !- Vertex 2 Ycoordinate
+    0.730125,                 !- Vertex 2 Zcoordinate
+    1.197468,                 !- Vertex 3 Xcoordinate
+    -5.218493e-01,            !- Vertex 3 Ycoordinate
+    0.730125,                 !- Vertex 3 Zcoordinate
+    1.197468,                 !- Vertex 4 Xcoordinate
+    -5.218493e-01,            !- Vertex 4 Ycoordinate
+    2.229975;                 !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    ventana_primer_piso_derecha_norte,    !- Name
+    Window,                   !- Surface Type
+    CONST_LOW_IRON_3MM,       !- Construction Name
+    paredPrimeroPisoDerechaNorte,    !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    3.174115,                 !- Vertex 1 Xcoordinate
+    0.902319946048,           !- Vertex 1 Ycoordinate
+    2.000180364011,           !- Vertex 1 Zcoordinate
+    3.174115,                 !- Vertex 2 Xcoordinate
+    0.902319946048,           !- Vertex 2 Ycoordinate
+    0.5001818640110001,       !- Vertex 2 Zcoordinate
+    3.174115,                 !- Vertex 3 Xcoordinate
+    2.4023184460479996,       !- Vertex 3 Ycoordinate
+    0.5001818640110001,       !- Vertex 3 Zcoordinate
+    3.174115,                 !- Vertex 4 Xcoordinate
+    2.4023184460479996,       !- Vertex 4 Ycoordinate
+    2.000180364011;           !- Vertex 4 Zcoordinate
+
+Shading:Building:Detailed,
+    alero_norte,              !- Name
+    ,                         !- Transmittance Schedule Name
+    4,                        !- Number of Vertices
+    2.530725,                 !- Vertex 1 Xcoordinate
+    9.886975,                 !- Vertex 1 Ycoordinate
+    5.1,                      !- Vertex 1 Zcoordinate
+    2.530725,                 !- Vertex 2 Xcoordinate
+    -2.173025,                !- Vertex 2 Ycoordinate
+    5.1,                      !- Vertex 2 Zcoordinate
+    2.780725,                 !- Vertex 3 Xcoordinate
+    -2.173025,                !- Vertex 3 Ycoordinate
+    5.1,                      !- Vertex 3 Zcoordinate
+    2.780725,                 !- Vertex 4 Xcoordinate
+    9.886975,                 !- Vertex 4 Ycoordinate
+    5.1;                      !- Vertex 4 Zcoordinate
+
+Shading:Building:Detailed,
+    alero_sur,                !- Name
+    ,                         !- Transmittance Schedule Name
+    4,                        !- Number of Vertices
+    -4.419275,                !- Vertex 1 Xcoordinate
+    9.886975,                 !- Vertex 1 Ycoordinate
+    5.31,                     !- Vertex 1 Zcoordinate
+    -4.419275,                !- Vertex 2 Xcoordinate
+    -2.173025,                !- Vertex 2 Ycoordinate
+    5.31,                     !- Vertex 2 Zcoordinate
+    -4.169275,                !- Vertex 3 Xcoordinate
+    -2.173025,                !- Vertex 3 Ycoordinate
+    5.31,                     !- Vertex 3 Zcoordinate
+    -4.169275,                !- Vertex 4 Xcoordinate
+    9.886975,                 !- Vertex 4 Ycoordinate
+    5.31;                     !- Vertex 4 Zcoordinate
+
+Shading:Building:Detailed,
+    alero_oeste,              !- Name
+    ,                         !- Transmittance Schedule Name
+    4,                        !- Number of Vertices
+    -4.169275,                !- Vertex 1 Xcoordinate
+    9.886975,                 !- Vertex 1 Ycoordinate
+    5.31,                     !- Vertex 1 Zcoordinate
+    2.530725,                 !- Vertex 2 Xcoordinate
+    9.886975,                 !- Vertex 2 Ycoordinate
+    5.1,                      !- Vertex 2 Zcoordinate
+    2.530725,                 !- Vertex 3 Xcoordinate
+    10.136975,                !- Vertex 3 Ycoordinate
+    5.1,                      !- Vertex 3 Zcoordinate
+    -4.169275,                !- Vertex 4 Xcoordinate
+    10.136975,                !- Vertex 4 Ycoordinate
+    5.31;                     !- Vertex 4 Zcoordinate
+
+Shading:Building:Detailed,
+    alero_este,               !- Name
+    ,                         !- Transmittance Schedule Name
+    4,                        !- Number of Vertices
+    -4.169275,                !- Vertex 1 Xcoordinate
+    -2.423025,                !- Vertex 1 Ycoordinate
+    5.31,                     !- Vertex 1 Zcoordinate
+    2.530725,                 !- Vertex 2 Xcoordinate
+    -2.423025,                !- Vertex 2 Ycoordinate
+    5.1,                      !- Vertex 2 Zcoordinate
+    2.530725,                 !- Vertex 3 Xcoordinate
+    -2.173025,                !- Vertex 3 Ycoordinate
+    5.1,                      !- Vertex 3 Zcoordinate
+    -4.169275,                !- Vertex 4 Xcoordinate
+    -2.173025,                !- Vertex 4 Ycoordinate
+    5.31;                     !- Vertex 4 Zcoordinate
+
+ZoneInfiltration:DesignFlowRate,
+    infiltracion2c,           !- Name
+    segundo_piso_Centro,      !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Half On Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    0.5,                      !- Air Changes per Hour
+    0.5,                      !- Constant Term Coefficient
+    0.05,                     !- Temperature Term Coefficient
+    0.1,                      !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    Outdoor;                  !- Density Basis
+
+ZoneInfiltration:DesignFlowRate,
+    infiltracion2d,           !- Name
+    zona_segundo_piso_derecha,    !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Half On Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    0.5,                      !- Air Changes per Hour
+    0.5,                      !- Constant Term Coefficient
+    0.05,                     !- Temperature Term Coefficient
+    0.1,                      !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    Outdoor;                  !- Density Basis
+
+ZoneInfiltration:DesignFlowRate,
+    infiltracion2izq,         !- Name
+    segundo_piso_izquierda_zona,    !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Half On Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    0.5,                      !- Air Changes per Hour
+    0.5,                      !- Constant Term Coefficient
+    0.05,                     !- Temperature Term Coefficient
+    0.1,                      !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    Outdoor;                  !- Density Basis
+
+ZoneInfiltration:DesignFlowRate,
+    infiltracion1der,         !- Name
+    zona_primero_piso_derecha,    !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Half On Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    0.5,                      !- Air Changes per Hour
+    0.5,                      !- Constant Term Coefficient
+    0.05,                     !- Temperature Term Coefficient
+    0.1,                      !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    Outdoor;                  !- Density Basis
+
+ZoneInfiltration:DesignFlowRate,
+    infiltracion1cen,         !- Name
+    primeroPisoCentro,        !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Half On Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    0.5,                      !- Air Changes per Hour
+    0.5,                      !- Constant Term Coefficient
+    0.05,                     !- Temperature Term Coefficient
+    0.1,                      !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    Outdoor;                  !- Density Basis
+
+ZoneInfiltration:DesignFlowRate,
+    infiltracion1izq,         !- Name
+    primero_piso_izquierda_zona,    !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Half On Schedule,    !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Exterior Surface Area
+    0.5,                      !- Air Changes per Hour
+    0.5,                      !- Constant Term Coefficient
+    0.05,                     !- Temperature Term Coefficient
+    0.1,                      !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    Outdoor;                  !- Density Basis
+
+ZoneVentilation:DesignFlowRate,
+    VentNat_2C_Norte,         !- Name
+    segundo_piso_Centro,      !- Zone or ZoneList or Space or SpaceList Name
+    VENTANA_PROGRAMADA,       !- Schedule Name
+    AirChanges/Hour,          !- Design Flow Rate Calculation Method
+    ,                         !- Design Flow Rate
+    ,                         !- Flow Rate per Floor Area
+    ,                         !- Flow Rate per Person
+    4,                        !- Air Changes per Hour
+    Natural,                  !- Ventilation Type
+    0,                        !- Fan Pressure Rise
+    1,                        !- Fan Total Efficiency
+    1,                        !- Constant Term Coefficient
+    0,                        !- Temperature Term Coefficient
+    0,                        !- Velocity Term Coefficient
+    0,                        !- Velocity Squared Term Coefficient
+    -100,                     !- Minimum Indoor Temperature
+    ,                         !- Minimum Indoor Temperature Schedule Name
+    100,                      !- Maximum Indoor Temperature
+    ,                         !- Maximum Indoor Temperature Schedule Name
+    -100,                     !- Delta Temperature
+    ,                         !- Delta Temperature Schedule Name
+    -100,                     !- Minimum Outdoor Temperature
+    ,                         !- Minimum Outdoor Temperature Schedule Name
+    100,                      !- Maximum Outdoor Temperature
+    ,                         !- Maximum Outdoor Temperature Schedule Name
+    40;                       !- Maximum Wind Speed
+
+Output:VariableDictionary,
+    IDF;                      !- Key Field
+
+Output:Table:SummaryReports,
+    AllSummary,               !- Report 1 Name
+    AnnualBuildingUtilityPerformanceSummary,    !- Report 2 Name
+    HVACSizingSummary;        !- Report 3 Name
+
+OutputControl:Table:Style,
+    HTML;                     !- Column Separator
+
+Output:Variable,
+    *,                        !- Key Value
+    Site Outdoor Air Drybulb Temperature,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    segundo_piso_Centro,      !- Key Value
+    Zone Air Temperature,     !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    segundo_piso_Centro,      !- Key Value
+    Zone Air Relative Humidity,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    primeroPisoCentro,        !- Key Value
+    Zone Air Temperature,     !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    primeroPisoCentro,        !- Key Value
+    Zone Air Relative Humidity,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    pared_segundo_piso_centro_norte,    !- Key Value
+    Surface Outside Face Temperature,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    pared_segundo_piso_centro_norte,    !- Key Value
+    Surface Inside Face Temperature,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    paredPrimerPisoCentroNorte,    !- Key Value
+    Surface Outside Face Temperature,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    paredPrimerPisoCentroNorte,    !- Key Value
+    Surface Inside Face Temperature,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
